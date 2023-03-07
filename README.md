@@ -1,11 +1,10 @@
 
 # Setup Docker Para Projetos Laravel
-[Assine a Academy, e Seja VIP!](https://academy.especializati.com.br)
 
 ### Passo a passo
 Clone Repositório
 ```sh
-git clone https://github.com/especializati/setup-docker-laravel.git my-project
+git clone https://github.com/tfeldner/setup-docker-laravel.git my-project
 ```
 ```sh
 cd my-project/
@@ -32,7 +31,7 @@ cp .env.example .env
 
 Atualize as variáveis de ambiente do arquivo .env
 ```dosini
-APP_NAME="Especializa Ti"
+APP_NAME="laravel"
 APP_URL=http://localhost:8989
 
 DB_CONNECTION=mysql
