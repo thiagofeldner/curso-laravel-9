@@ -6,11 +6,11 @@
 @section('content')
 <h1 style="background-color: #4aa9c4;">
   Listagem dos Usuários
-  (<a href="{{ route('users.create') }}">+</a>)
+  (<a href="{{ route('users.create') }}" >+</a>)
 </h1>
 
 <form action="{{ route('users.index') }}" method="get">
-  <input type="text" name="search" placeholder="Pesquisar">
+  <input style="margin-left: 25px" size="40" type="text" name="search" placeholder="Pesquisar">
   <button>Pesquisar</button>
 
 </form>
