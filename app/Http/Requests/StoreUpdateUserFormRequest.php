@@ -23,6 +23,8 @@ class StoreUpdateUserFormRequest extends FormRequest
      */
     public function rules()
     {
+      $id = $this->id ?? '';
+
       $rules =  [
         'name' => [
           'required',
@@ -33,7 +35,7 @@ class StoreUpdateUserFormRequest extends FormRequest
         'email' => [
           'required',
           'email',
-          'unique:users'
+          "unique:users,email,{$id},id",
         ],
         'password' => [
             'required',
