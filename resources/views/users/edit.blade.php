@@ -4,24 +4,13 @@
 
 @section('content')
 
-<h1 style="background-color: #4aa9c4;">Editar o Usuário {{ $user->name }}</h1>
+<h1 class="text-2xl font-semibold leading-tigh py-2">Editar o Usuário {{ $user->name }}</h1>
 
-@if($errors -> any())
-  <ul class="errors">
-    @foreach($errors->all() as $error)
-      <li class="error">{{ $error }}</li>
-    @endforeach
-  </ul>
-
-@endif
+@include('includes.validations-form')
 
 <form action="{{ route('users.update', $user->id) }}" method="post">
   @method('PUT')
-  @csrf
-  <input type="text" name="name" value="{{ $user->name }}" placeholder="Nome: ">
-  <input type="email" name="email" value="{{ $user->email }}" placeholder="E-mail: ">
-  <input type="password" name="password" placeholder="Senha: ">
-  <button type="submit">Enviar</button>
+  @include('users._partials.form')
 </form>
 
 @endsection

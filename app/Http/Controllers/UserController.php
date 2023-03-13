@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+  protected $model;
+
+  public function __construct(User $user){
+    $this->model = $user;
+  }
+
   public function index(Request $request){
-    $search = $request->search;
-    $users = User::where(
-      function($query) use($search) {
-        if ($search) {
-          $query->where('email', $search);
-          $query->orWhere('name', 'LIKE', "%{$search}%");
-        }
-    })->get();
+
+    $users = $this->model->getUsers(search: $request->search ?? '');
 
     return view('users.index', compact('users'));
   }
@@ -24,7 +24,7 @@ class UserController extends Controller
   public function show($id){
     // $user = User::where('id', $id)->first();
 
-    if(!$user =User::find($id))
+    if(!$user =$this->model->find($id))
       return redirect()->route('users.index');
 
     return view('users.show', compact('user'));
@@ -39,16 +39,14 @@ class UserController extends Controller
     $data = $request->all();
     $data ['password'] = bcrypt($request->password);
 
-    $user = User::create($data);
+    $this->model->create($data);
 
     return redirect()->route('users.index');
-
-    // return redirect()->route('users.show', $user->id);
 
   }
 
   public function edit($id) {
-    if(!$user =User::find($id))
+    if(!$user =$this->model->find($id))
     return redirect()->route('users.index');
 
     return view('users.edit',compact('user'));
@@ -56,7 +54,7 @@ class UserController extends Controller
 
   public function update(StoreUpdateUserFormRequest $request, $id) {
 
-    if(!$user =User::find($id))
+    if(!$user =$this->model->find($id))
     return redirect()->route('update.index');
 
     $data = $request->only('name', 'email');
@@ -70,7 +68,7 @@ class UserController extends Controller
 
   public function delete($id){
 
-    if(!$user = User::find($id))
+    if(!$user = $this->model->find($id))
       return redirect()->route('users.index');
 
     $user->delete();
